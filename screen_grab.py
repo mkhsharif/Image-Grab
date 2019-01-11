@@ -9,7 +9,6 @@ pts = {'x1': 500, 'y1': 400, 'x2': 1000, 'y2': 1000}
 screen = {'top': 160, 'left': 160, 'width': 380, 'height': 300}
 sct = mss()
 cam = cv2.VideoCapture(1)
-cv2.namedWindow('Cam')
 # save video recording
 
 x = input('Enter 1 for ImageGrab, 2 for MSS, or 3 for Webcam: ')
@@ -41,16 +40,14 @@ while x == '3':
     small = cv2.resize(frame, (0,0), fx=0.5, fy=0.5) # scale input down by 50%
     print(cam.read())
     roi = small[30:700, 240:720]  #[y1:y2, x1:x2], crop sides 
-    cv2.imshow('Cam', roi)
+    egdes = cv2.Canny(roi, 500, 500)
+    cv2.imshow('Cam Egdes', egdes)
+    cv2.imshow('Cam Raw', roi)
     if not ret:
         break
 
     if cv2.waitKey(1) == 27:
         break
-
-
-def mirror_img():
-    x = 0
 
 
 cam.release()
